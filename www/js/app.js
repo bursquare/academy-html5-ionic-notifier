@@ -8,7 +8,7 @@ angular.module('af-notifier', ['ionic','LocalStorageModule'])
 
 .config( function(localStorageServiceProvider){
   localStorageServiceProvider
-    .setPrefix('notifier');
+    .setPrefix('af-notifier');
 })
 
 .run(function($ionicPlatform) {
@@ -28,3 +28,42 @@ angular.module('af-notifier', ['ionic','LocalStorageModule'])
     }
   });
 })
+
+app.controller('main', [
+  '$scope', 
+  '$ionicModal', 
+  'localStorageServices', 
+  function($scope, $ionicModal, LocalStorageService){
+
+  //initialise the notifiers scope with an empty array
+  $scope.notifications = [];
+
+  //initialise the task scope with an empty object
+  $scope.notification = {}
+
+  $ionicModal.fromTemplateUrl('new-notification-modal', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then( function(modal){
+    $scope.newNotification = modal;
+  });
+
+  $scope.openNotificationModal = function () {
+    $scope.newNotification.show();
+  };
+
+  $scope.closeNotificationModal = function () {
+    $scope.newNotification.hide();
+  };
+
+  $scope.getNotifications = function() {
+    // fetches all notifications from local Storage
+  }
+  $scope.createNotification = function() {
+    // creates a new notification
+  }
+
+  $scope.removeNotification = function() {
+    // removes a notification
+  }
+
